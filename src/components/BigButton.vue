@@ -1,12 +1,10 @@
 <template>
-  <button class="bg-gray-800 text-white font-bold py-10 px-6 rounded-xl text-5xl">
+  <button class="bg-gray-800 text-white font-bold py-10 px-6 rounded-xl text-4xl">
     {{ props.text }}
   </button>
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
-
 const props = defineProps({
   text: {
     type: String,
@@ -19,7 +17,7 @@ const props = defineProps({
 <style scoped>
 
 button {
-  width: 360px;
-  height: 460px;
+  width: 30vw;
+  min-height: 50vh;
 }
 </style>
