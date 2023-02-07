@@ -21,6 +21,10 @@
   --color-primary-hover: #212121;
 }
 
+html {
+  background-color: #FFFCEA;
+}
+
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
@@ -31,11 +35,4 @@ h1 {
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #FFFCEA;
-  }
 }
