@@ -14,6 +14,7 @@ import BigButton from "./components/BigButton.vue";
 import axios from "axios";
 import { API_RASP_URL } from "./utils/constant.ts";
 
+// SWITCH LEDS
 const switchLeds = (type) => {
   console.log("switchLeds", type);
   axios.get(API_RASP_URL + "/led/" + type);
