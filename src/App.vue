@@ -1,12 +1,24 @@
-<script setup>
-</script>
-
 <template>
-  <div class="text-3xl font-bold underline">
-    Hello world
+  <div class="text-4xl font-bold mt-6">Avez-vous un compte Lockio ?</div>
+  <div class="flex flex-center justify-evenly mt-16">
+    <BigButton text="Oui, je me connecte" @click="switchLeds('on')" />
+    <BigButton
+      text="Non, je continue en tant qu'invité"
+      @click="switchLeds('off')"
+    />
   </div>
 </template>
 
-<style scoped>
+<script setup>
+import BigButton from "./components/BigButton.vue";
+import axios from "axios";
+import { API_RASP_URL } from "./utils/constant.ts";
 
-</style>
+// SWITCH LEDS
+const switchLeds = (type) => {
+  console.log("switchLeds", type);
+  axios.get(API_RASP_URL + "/led/" + type);
+};
+</script>
+
+<style scoped></style>
