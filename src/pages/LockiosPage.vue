@@ -1,7 +1,10 @@
 <template>
   <div class="flex items-center justify-between w-full h-custom px-12">
-    <div class="w-1/2 flex justify-center">
-      <locker-grid></locker-grid>
+    <div class="w-2/3 flex justify-center">
+      <locker-grid
+        :lockios="lockios"
+        @lockioSelected="(lockio) => (lockioSelected = lockio)"
+      ></locker-grid>
     </div>
 
     <div class="flex flex-col w-1/4">
@@ -23,42 +26,12 @@
 
 <script setup lang="ts">
 import LockerGrid from "../components/LockerGrid.vue";
-import { ref } from "vue";
+import { computed, ref } from "vue";
+import { useLockioStore } from "../stores/lockio-store";
 
-const lockios = [
-  {
-    id: 1,
-    status: "AVAILABLE",
-  },
-  {
-    id: 2,
-    status: "AVAILABLE",
-  },
-  {
-    id: 3,
-    status: "AVAILABLE",
-  },
-  {
-    id: 4,
-    status: "AVAILABLE",
-  },
-  {
-    id: 5,
-    status: "AVAILABLE",
-  },
-  {
-    id: 6,
-    status: "AVAILABLE",
-  },
-  {
-    id: 7,
-    status: "AVAILABLE",
-  },
-  {
-    id: 8,
-    status: "AVAILABLE",
-  },
-];
+const lockioStore = useLockioStore();
+lockioStore.fetchLockios();
+const lockios = computed(() => lockioStore.lockios);
 let lockioSelected = ref({});
 </script>
 
