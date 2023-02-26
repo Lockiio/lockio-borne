@@ -1,20 +1,10 @@
 import { Lockio } from "../models/models";
-
+import axios from "axios";
+import { API_BACK_URL, BLOCK_ID } from "../utils/constant";
 async function fetchLockios(): Promise<Lockio[]> {
-  // This is just a mock function to simulate an API call
-  // TODO : plug api call here
-  const numberOfLockers = 20;
-  const lockers: Lockio[] = [];
-  for (let i = 0; i < numberOfLockers; i++) {
-    lockers.push({
-      id: i,
-      blockId: 1,
-      localId: i,
-      size: Math.random() < 0.8 ? "SMALL" : "MEDIUM",
-      status: Math.random() < 0.8 ? "AVAILABLE" : "OCCUPIED",
-    });
-  }
-  return lockers;
+  const response = await axios.get(API_BACK_URL + "/blocks/" + BLOCK_ID + "/lockios");
+  console.log(response.data)
+  return response.data;
 }
 
 export const lockioService = {

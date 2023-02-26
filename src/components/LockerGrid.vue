@@ -3,7 +3,7 @@
     <div v-for="lockioArray in lockiosSplit" class="flex flex-row">
       <div v-for="lockio in lockioArray">
         <button
-          class="bg-gray-600 w-32 h-32 mr-2 mt-2 rounded-xl"
+          class="bg-gray-600 w-32 h-32 mr-2 mt-2 rounded-xl disabled:opacity-50"
           :class="{
             available: is(lockio.id, 'AVAILABLE'),
             occupied: is(lockio.id, 'OCCUPIED'),
@@ -12,8 +12,9 @@
               selectedLockio.id !== lockio.id && selectedLockio.id !== undefined,
           }"
           @click="updateSelected(lockio)"
+          :disabled="lockio.status === 'DISABLED'"
         >
-          <span class="text-xl">{{ lockio.id }}</span>
+          <span class="text-xl">{{ lockio.localId }}</span>
           <br />
           <span class="font-bold">{{ lockio.status }}</span>
         </button>
@@ -67,6 +68,7 @@ const lockiosSplit = computed(() => splitArrays(lockios.value, 5));
 .available.active {
   background-color: #6ed26e;
   animation: pulse-available 0.8s infinite alternate;
+  box-shadow: darkslateblue 0 0 0 3px;
 }
 
 .occupied {
@@ -76,10 +78,7 @@ const lockiosSplit = computed(() => splitArrays(lockios.value, 5));
 .occupied.active {
   background-color: #ff7c7c;
   animation: pulse-occupied 0.8s infinite alternate;
-}
-
-.inactive {
-  opacity: 50%;
+  box-shadow: darkslateblue 0 0 0 3px;
 }
 
 @keyframes pulse-available {
