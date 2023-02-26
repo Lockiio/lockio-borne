@@ -1,21 +1,23 @@
 <template>
-  <div v-for="lockioArray in lockiosSplit" class="flex flex-col">
-    <div v-for="lockio in lockioArray" class="flex flex-col">
-      <button
-        class="bg-gray-600 w-32 h-32 mr-2 mt-2 rounded-xl"
-        :class="{
-          available: is(lockio.id, 'AVAILABLE'),
-          occupied: is(lockio.id, 'OCCUPIED'),
-          active: selectedLockio.id === lockio.id,
-          inactive:
-            selectedLockio.id !== lockio.id && selectedLockio.id !== undefined,
-        }"
-        @click="updateSelected(lockio)"
-      >
-        <span class="text-xl">{{ lockio.id }}</span>
-        <br />
-        <span class="font-bold">{{ lockio.status }}</span>
-      </button>
+  <div class="flex flex-col">
+    <div v-for="lockioArray in lockiosSplit" class="flex flex-row">
+      <div v-for="lockio in lockioArray">
+        <button
+          class="bg-gray-600 w-32 h-32 mr-2 mt-2 rounded-xl"
+          :class="{
+            available: is(lockio.id, 'AVAILABLE'),
+            occupied: is(lockio.id, 'OCCUPIED'),
+            active: selectedLockio.id === lockio.id,
+            inactive:
+              selectedLockio.id !== lockio.id && selectedLockio.id !== undefined,
+          }"
+          @click="updateSelected(lockio)"
+        >
+          <span class="text-xl">{{ lockio.id }}</span>
+          <br />
+          <span class="font-bold">{{ lockio.status }}</span>
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -32,7 +34,6 @@ const props = defineProps({
   },
 });
 
-// split the lockios into 3 arrays of 3 lockios
 const lockios = computed(() => props.lockios);
 
 const splitArrays = (array: Lockio[], size: number) => {
@@ -55,7 +56,7 @@ const updateSelected = (lockio: Lockio) => {
   emit("lockioSelected", lockio);
 };
 
-const lockiosSplit = computed(() => splitArrays(lockios.value, 4));
+const lockiosSplit = computed(() => splitArrays(lockios.value, 5));
 </script>
 
 <style scoped>
