@@ -12,7 +12,7 @@
               selectedLockio.id !== lockio.id && selectedLockio.id !== undefined,
           }"
           @click="updateSelected(lockio)"
-          :disabled="lockio.status === 'DISABLED'"
+          :disabled="lockio.status !== 'AVAILABLE' && lockio.status !== 'OCCUPIED'"
         >
           <span class="text-xl">{{ lockio.localId }}</span>
           <br />
@@ -57,7 +57,7 @@ const updateSelected = (lockio: Lockio) => {
   emit("lockioSelected", lockio);
 };
 
-const lockiosSplit = computed(() => splitArrays(lockios.value, 5));
+const lockiosSplit = computed(() => splitArrays(lockios.value, 4));
 </script>
 
 <style scoped>
