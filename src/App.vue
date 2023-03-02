@@ -1,24 +1,14 @@
 <template>
-  <div class="text-4xl font-bold mt-6">Avez-vous un compte Lockio ?</div>
-  <div class="flex flex-center justify-evenly mt-16">
-    <BigButton text="Oui, je me connecte" @click="switchLeds('on')" />
-    <BigButton
-      text="Non, je continue en tant qu'invité"
-      @click="switchLeds('off')"
-    />
-  </div>
+  <router-view></router-view>
 </template>
 
-<script setup>
-import BigButton from "./components/BigButton.vue";
-import axios from "axios";
-import { API_RASP_URL } from "./utils/constant.ts";
+<script setup lang="ts">
+import { useRouter } from "vue-router";
+import { onErrorCaptured } from "vue";
 
-// SWITCH LEDS
-const switchLeds = (type) => {
-  console.log("switchLeds", type);
-  axios.get(API_RASP_URL + "/led/" + type);
-};
+const router = useRouter();
+onErrorCaptured((err, vm, info) => {
+  console.log(err, vm, info);
+  router.push({ name: "NotFound" });
+});
 </script>
-
-<style scoped></style>
