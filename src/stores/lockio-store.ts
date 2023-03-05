@@ -10,20 +10,13 @@ export const useLockioStore = defineStore({
     lockios: [],
   }),
   getters: {
-    availableLockios(): Lockio[] {
-      return this.lockios.filter((lockio) => lockio.status === "AVAILABLE");
+    getLockios(): Lockio[] {
+      return this.lockios;
     },
   },
   actions: {
     async fetchLockios() {
       this.lockios = await lockioService.fetchLockios();
-    },
-    switchLockerStatus(lockioId: number) {
-      const lockio = this.lockios.find((lockio) => lockio.id === lockioId);
-      if (lockio) {
-        lockio.status =
-          lockio.status === "AVAILABLE" ? "OCCUPIED" : "AVAILABLE";
-      }
     },
   },
 });
