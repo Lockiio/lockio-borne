@@ -2,25 +2,11 @@
   <div class="flex flex-col">
     <div v-for="lockioArray in lockiosSplit" class="flex flex-row">
       <div v-for="lockio in lockioArray">
-        <button
-          class="bg-gray-600 w-32 h-32 mr-2 mt-2 rounded-xl disabled:opacity-50"
-          :class="{
-            available: is(lockio.id, 'AVAILABLE'),
-            occupied: is(lockio.id, 'OCCUPIED'),
-            active: selectedLockio.id === lockio.id,
-            inactive:
-              selectedLockio.id !== lockio.id &&
-              selectedLockio.id !== undefined,
-          }"
-          @click="updateSelected(lockio)"
-          :disabled="
-            lockio.status !== 'AVAILABLE' && lockio.status !== 'OCCUPIED'
-          "
-        >
-          <span class="text-xl">{{ lockio.localId }}</span>
-          <br />
-          <span class="font-bold">{{ lockio.status }}</span>
-        </button>
+        <lockio-cell
+          :lockio="lockio"
+          :is-active="selectedLockio.id === lockio.id"
+          @lockioSelected="updateSelected(lockio)"
+        ></lockio-cell>
       </div>
     </div>
   </div>
@@ -29,8 +15,10 @@
 <script setup lang="ts">
 import { computed, PropType, ref } from "vue";
 import { Lockio } from "../models/models";
+import LockioCell from "./LockioCell.vue";
 
 const emit = defineEmits(["lockioSelected"]);
+
 const props = defineProps({
   lockios: {
     type: Array as PropType<Lockio[]>,
@@ -48,10 +36,7 @@ const splitArrays = (array: Lockio[], size: number) => {
   return result;
 };
 
-const is = (id: number, state: string) => {
-  const lockio = lockios.value.find((lockio) => lockio.id === id);
-  return lockio?.status === state;
-};
+const lockiosSplit = computed(() => splitArrays(lockios.value, 4));
 
 let selectedLockio = ref({} as Lockio);
 
@@ -60,45 +45,4 @@ const updateSelected = (lockio: Lockio) => {
   emit("lockioSelected", lockio);
 };
 
-const lockiosSplit = computed(() => splitArrays(lockios.value, 4));
 </script>
-
-<style scoped>
-.available {
-  background-color: #6ed26e;
-}
-
-.available.active {
-  background-color: #6ed26e;
-  animation: pulse-available 0.8s infinite alternate;
-  box-shadow: darkslateblue 0 0 0 3px;
-}
-
-.occupied {
-  background-color: #ff7c7c;
-}
-
-.occupied.active {
-  background-color: #ff7c7c;
-  animation: pulse-occupied 0.8s infinite alternate;
-  box-shadow: darkslateblue 0 0 0 3px;
-}
-
-@keyframes pulse-available {
-  0% {
-    background-color: #6ed26e;
-  }
-  100% {
-    background-color: #4e984e;
-  }
-}
-
-@keyframes pulse-occupied {
-  0% {
-    background-color: #ff7c7c;
-  }
-  100% {
-    background-color: #eb5b5b;
-  }
-}
-</style>
