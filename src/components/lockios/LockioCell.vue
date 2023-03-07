@@ -1,6 +1,6 @@
 <template>
   <button
-      class="bg-gray-600 w-32 h-32 mr-2 mt-2 rounded-xl disabled:opacity-50"
+      class="bg-gray-600 h-32 w-32 mr-2 mt-2 rounded-xl disabled:opacity-50"
       :class="{
             available: is('AVAILABLE'),
             occupied: is('OCCUPIED'),
@@ -11,14 +11,13 @@
             !is('AVAILABLE') && !is('OCCUPIED')
           "
   >
-    <span class="text-xl">{{ props.lockio.localId }}</span>
-    <br />
-    <span class="font-bold">{{ props.lockio.status }}</span>
+    <div class="text-2xl font-bold">{{ props.lockio.localId }}</div>
+    <div class="text-xl mt-2">{{ props.lockio.size }}</div>
   </button>
 </template>
 
 <script setup lang="ts">
-import { Lockio } from "../models/models";
+import { Lockio } from "../../models/models";
 import { PropType, ref } from "vue";
 
 const emit = defineEmits(["lockioSelected"]);
