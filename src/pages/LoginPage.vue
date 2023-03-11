@@ -20,12 +20,9 @@ import { ref } from "vue";
 const router = useRouter();
 
 let code = ref(0);
+
+// TODO : connect to BACK and check if user exists. If ok, redirect to Lockios page. If not, redirect to Login page.
 const checkLogin = () => {
-  console.log(code.value);
-  console.log(
-    "TODO : connect to BACK and check if user exists. If ok, redirect to Lockios page. " +
-      "If not, redirect to Login page."
-  );
   router.push({ name: "Lockios" });
 };
 </script>

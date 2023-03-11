@@ -9,10 +9,13 @@
             occupied: is(lockio.id, 'OCCUPIED'),
             active: selectedLockio.id === lockio.id,
             inactive:
-              selectedLockio.id !== lockio.id && selectedLockio.id !== undefined,
+              selectedLockio.id !== lockio.id &&
+              selectedLockio.id !== undefined,
           }"
           @click="updateSelected(lockio)"
-          :disabled="lockio.status !== 'AVAILABLE' && lockio.status !== 'OCCUPIED'"
+          :disabled="
+            lockio.status !== 'AVAILABLE' && lockio.status !== 'OCCUPIED'
+          "
         >
           <span class="text-xl">{{ lockio.localId }}</span>
           <br />
