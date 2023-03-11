@@ -82,7 +82,7 @@ import { computed, ref } from "vue";
 import { useLockioStore } from "../stores/lockio-store";
 import { useBlockStore } from "../stores/block-store";
 
-import LockerGrid from "../components/LockerGrid.vue";
+import LockerGrid from "../components/lockios/LockiosGrid.vue";
 import CodeInput from "../components/CodeInput.vue";
 import ConfirmationSection from "../components/ConfirmationSection.vue";
 import ModalCloser from "../components/ModalCloser.vue";
