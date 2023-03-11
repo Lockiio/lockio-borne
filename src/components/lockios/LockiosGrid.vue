@@ -1,6 +1,9 @@
 <template>
   <div class="flex flex-col">
-    <div v-for="lockioArray in lockiosSplit" class="flex flex-row justify-between items-center">
+    <div
+      v-for="lockioArray in lockiosSplit"
+      class="flex flex-row justify-between items-center"
+    >
       <div v-for="lockio in lockioArray">
         <lockio-cell
           :lockio="lockio"
@@ -45,5 +48,4 @@ const updateSelected = (lockio: Lockio) => {
   selectedLockio.value = lockio as Lockio;
   emit("lockioSelected", lockio);
 };
-
 </script>

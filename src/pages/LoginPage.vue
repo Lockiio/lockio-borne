@@ -3,7 +3,10 @@
     Veuillez saisir votre numéro de compte :
   </div>
   <div class="mb-16 mt-16">
-    <code-input :code-incorrect="false" @update-value="(value) => (code = value)"></code-input>
+    <code-input
+      :code-incorrect="false"
+      @update-value="(value) => (code = value)"
+    ></code-input>
   </div>
   <button
     class="bg-gray-800 text-white font-bold py-4 px-16 rounded-xl text-4xl"

@@ -1,15 +1,13 @@
 <template>
   <button
-      class="bg-gray-600 h-32 w-32 mr-2 mt-2 rounded-xl disabled:opacity-50"
-      :class="{
-            available: is('AVAILABLE'),
-            occupied: is('OCCUPIED'),
-            active: props.isActive,
-          }"
-      @click="updateSelected(props.lockio)"
-      :disabled="
-            !is('AVAILABLE') && !is('OCCUPIED')
-          "
+    class="bg-gray-600 h-32 w-32 mr-2 mt-2 rounded-xl disabled:opacity-50"
+    :class="{
+      available: is('AVAILABLE'),
+      occupied: is('OCCUPIED'),
+      active: props.isActive,
+    }"
+    @click="updateSelected(props.lockio)"
+    :disabled="!is('AVAILABLE') && !is('OCCUPIED')"
   >
     <div class="text-2xl font-bold">{{ props.lockio.localId }}</div>
     <div class="text-xl mt-2">{{ props.lockio.size }}</div>
@@ -42,7 +40,6 @@ const updateSelected = (lockio: Lockio) => {
   selectedLockio.value = lockio as Lockio;
   emit("lockioSelected", lockio);
 };
-
 </script>
 
 <style scoped>
