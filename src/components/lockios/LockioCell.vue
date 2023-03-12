@@ -4,10 +4,11 @@
     :class="{
       available: is('AVAILABLE'),
       occupied: is('OCCUPIED'),
+      prereserved: is('PRERESERVED'),
       active: props.isActive,
     }"
     @click="updateSelected(props.lockio)"
-    :disabled="!is('AVAILABLE') && !is('OCCUPIED')"
+    :disabled="!is('AVAILABLE') && !is('OCCUPIED') && !is('PRERESERVED')"
   >
     <div class="text-2xl font-bold">{{ props.lockio.localId }}</div>
     <div class="text-xl mt-2">{{ props.lockio.size }}</div>
@@ -63,6 +64,16 @@ const updateSelected = (lockio: Lockio) => {
   box-shadow: darkslateblue 0 0 0 3px;
 }
 
+.prereserved {
+  background-color: #ceae80;
+}
+
+.prereserved.active {
+  background-color: #ceae80;
+  animation: pulse-prereserved 0.8s infinite alternate;
+  box-shadow: darkslateblue 0 0 0 3px;
+}
+
 @keyframes pulse-available {
   0% {
     background-color: #6ed26e;
@@ -78,6 +89,15 @@ const updateSelected = (lockio: Lockio) => {
   }
   100% {
     background-color: #eb5b5b;
+  }
+}
+
+@keyframes pulse-prereserved {
+  0% {
+    background-color: #ceae80;
+  }
+  100% {
+    background-color: #cca164;
   }
 }
 </style>

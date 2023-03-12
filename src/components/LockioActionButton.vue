@@ -21,8 +21,11 @@ const props = defineProps<{
 const disabled = computed(() => {
   if (props.type === "REMOVE") {
     return props.lockioSelected.status !== "OCCUPIED";
-  } else if (props.type === "USE") {
-    return props.lockioSelected.status !== "AVAILABLE";
+  } else if (props.type === "USE" || props.type === "PRERESERVED") {
+    return (
+      props.lockioSelected.status !== "AVAILABLE" &&
+      props.lockioSelected.status !== "PRERESERVED"
+    );
   } else {
     return true;
   }
@@ -34,7 +37,11 @@ const useLockio = () => {
   if (props.type === "REMOVE") {
     emit("showModal");
   } else if (props.type === "USE") {
-    emit("useLockio");
+    if (props.lockioSelected.status === "AVAILABLE") {
+      emit("useLockio");
+    } else if (props.lockioSelected.status === "PRERESERVED") {
+      emit("showModal");
+    }
   }
 };
 </script>

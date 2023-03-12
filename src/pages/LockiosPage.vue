@@ -50,6 +50,7 @@
           :lockio-selected="lockioSelected"
           :text="useButton.text"
           :type="useButton.action"
+          @showModal="showModal = true"
           @useLockio="useLockio(lockioSelected.id)"
         >
         </lockio-action-button>
@@ -127,9 +128,11 @@ const checkCode = (lockioId: number) => {
     })
     .then((response) => {
       lockioStore.fetchLockios();
-      if (response.data.status === "OCCUPIED") {
+      if (
+        response.data.status === "OCCUPIED" ||
+        response.data.status === "PRERESERVED"
+      ) {
         codeIncorrect.value = true;
-        console.log("error");
       } else if (response.data.status === "AVAILABLE") {
         codeIncorrect.value = false;
         showModal.value = false;
